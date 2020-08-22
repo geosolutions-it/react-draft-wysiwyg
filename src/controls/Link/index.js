@@ -8,7 +8,8 @@ import {
 } from 'draftjs-utils';
 import linkifyIt from 'linkify-it';
 
-import LayoutComponent from './Component';
+import DefaultLayoutComponent from './Component';
+import MapStoreLayoutComponent from '../../mapstore/controls/Link/Component';
 
 const linkify = linkifyIt();
 const linkifyLink = params => {
@@ -56,15 +57,15 @@ class Link extends Component {
     this.signalExpanded = !this.state.expanded;
   };
 
-  onChange = (action, title, target, targetOption) => {
+  onChange = (action, title, target, targetOption, geoStorySection) => {
     const {
       config: { linkCallback },
     } = this.props;
 
     if (action === 'link') {
       const linkifyCallback = linkCallback || linkifyLink;
-      const linkified = linkifyCallback({ title, target, targetOption });
-      this.addLink(linkified.title, linkified.target, linkified.targetOption);
+      const linkified = linkifyCallback({ title, target, targetOption, geoStorySection });
+      this.addLink(linkified.title, linkified.target, linkified.targetOption, linkified.geoStorySection);
     } else {
       this.removeLink();
     }
@@ -134,7 +135,7 @@ class Link extends Component {
     }
   };
 
-  addLink = (linkTitle, linkTarget, linkTargetOption) => {
+  addLink = (linkTitle, linkTarget, linkTargetOption, geoStorySection) => {
     const { editorState, onChange, config: { trailingWhitespace = false } } = this.props;
     const { currentEntity } = this.state;
     let selection = editorState.getSelection();
@@ -154,11 +155,13 @@ class Link extends Component {
         });
       }
     }
+  
     const entityKey = editorState
       .getCurrentContent()
       .createEntity('LINK', 'MUTABLE', {
         url: linkTarget,
         targetOption: linkTargetOption,
+        geoStorySection
       })
       .getLastCreatedEntityKey();
 
@@ -197,10 +200,14 @@ class Link extends Component {
   };
 
   render() {
-    const { config, translations } = this.props;
+    const { config, translations, inGeoStoryContext } = this.props;
     const { expanded } = this.state;
     const { link, selectionText } = this.getCurrentValues();
-    const LinkComponent = config.component || LayoutComponent;
+
+    let LinkComponent = config.component || DefaultLayoutComponent;
+    if (inGeoStoryContext) {
+      LinkComponent = MapStoreLayoutComponent;
+    }
     return (
       <LinkComponent
         config={config}

@@ -28,6 +28,7 @@ import { hasProperty, filter } from '../utils/common';
 import { handlePastedText } from '../utils/handlePaste';
 import Controls from '../controls';
 import getLinkDecorator from '../decorators/Link';
+// import getMapStoreLinkDecorator from '../mapstore/decorators/Link';
 import getMentionDecorators from '../decorators/Mention';
 import getHashtagDecorator from '../decorators/HashTag';
 import getBlockRenderFunc from '../renderer';
@@ -206,6 +207,11 @@ class WysiwygEditor extends Component {
   };
 
   getCompositeDecorator = toolbar => {
+    const { inGeoStoryContext } = toolbar;
+    let getLinkDecorator = getDefaultLinkDecorator;
+    if (inGeoStoryContext) {
+      getLinkDecorator = getMapStoreLinkDecorator;
+    }
     const decorators = [
       ...this.props.customDecorators,
       getLinkDecorator({
@@ -463,7 +469,7 @@ class WysiwygEditor extends Component {
               if (opt === 'image' && uploadCallback) {
                 config.uploadCallback = uploadCallback;
               }
-              return <Control key={index} {...controlProps} config={config} />;
+              return <Control inGeoStoryContext={toolbar.inGeoStoryContext} key={index} {...controlProps} config={config} />;
             })}
             {toolbarCustomButtons &&
               toolbarCustomButtons.map((button, index) =>

@@ -44,6 +44,7 @@ export default {
     "remove",
     "history"
   ],
+  inGeoStoryContext: false,
   inline: {
     inDropdown: false,
     className: undefined,
@@ -181,7 +182,8 @@ export default {
     options: ["link", "unlink"],
     link: { icon: link, className: undefined, title: undefined },
     unlink: { icon: unlink, className: undefined, title: undefined },
-    linkCallback: undefined
+    linkCallback: undefined,
+    availableStorySections: []
   },
   emoji: {
     icon: emoji,
