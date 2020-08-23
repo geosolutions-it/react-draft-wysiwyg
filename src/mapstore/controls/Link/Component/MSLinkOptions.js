@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
 
 import { Dropdown, DropdownOption } from '../../../../components/Dropdown';
+import './styles.css';
 
 export default class MSLinkOptions extends Component {
 
@@ -23,7 +23,7 @@ export default class MSLinkOptions extends Component {
     return (
         <div className="rdw-block-wrapper" aria-label="rdw-block-control">
         <Dropdown
-        className={classNames('ms-rdw-link-options-dropdown')}
+        className='ms-rdw-link-options-dropdown'
         onChange={onSelectionChange}
         expanded={expanded}
         doExpand={this.toggle}

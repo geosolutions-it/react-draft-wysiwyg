@@ -463,11 +463,6 @@
   .rdw-history-dropdown {
     width: 50px;
   }
-
-  /* mapstore customizations */
-  .ms-rdw-link-options-dropdown {
-    width: 100%;
-  }
   
 .rdw-embedded-wrapper {
   display: flex;
@@ -852,6 +847,17 @@
   background-color: white;
 }
 
+.rdw-link-decorator-wrapper {
+    position: relative;
+  }
+  .rdw-link-decorator-icon {
+    position: absolute;
+    left: 40%;
+    top: 0;
+    cursor: pointer;
+    background-color: white;
+  }
+  
 .rdw-mention-link {
   text-decoration: none;
   color: #1236ff;

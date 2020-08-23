@@ -69,7 +69,7 @@ class LayoutComponent extends Component {
     // always begin reset the showExternalLinkOptions state
     this.setState({ showExternalLinkOptions: false });
     if (option === EXTERNAL_LINK) {
-      this.setState({ showExternalLinkOptions: true, geoStorySection: undefined, currentSelectOption: option });
+      this.setState({ linkTarget: '', geoStorySection: undefined, showExternalLinkOptions: true, geoStorySection: undefined, currentSelectOption: option });
     } else {
       this.setState({ linkTarget: option, geoStorySection: option, currentSelectOption: option });
     }

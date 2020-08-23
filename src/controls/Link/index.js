@@ -155,14 +155,19 @@ class Link extends Component {
         });
       }
     }
+
+    const entityData = {
+      url: linkTarget,
+      targetOption: linkTargetOption
+    }
+
+    if (geoStorySection) {
+      entityData.geoStorySection = geoStorySection;
+    }
   
     const entityKey = editorState
       .getCurrentContent()
-      .createEntity('LINK', 'MUTABLE', {
-        url: linkTarget,
-        targetOption: linkTargetOption,
-        geoStorySection
-      })
+      .createEntity('LINK', 'MUTABLE', entityData)
       .getLastCreatedEntityKey();
 
     let contentState = Modifier.replaceText(

@@ -56,7 +56,7 @@ function getLinkComponent(config) {
           <span
           className="rdw-link-decorator-wrapper"
         >
-          <a href={url} target={targetOption} data-geostory-interaction={geoStorySection}>{children}</a>
+          <a data-geostory-interaction={geoStorySection}>{children}</a>
         </span>
         )
       }
@@ -82,7 +82,7 @@ function getLinkComponent(config) {
     }
 
     render() {
-      this.renderDecorator();
+      return this.renderDecorator();
     }
   };
 }
