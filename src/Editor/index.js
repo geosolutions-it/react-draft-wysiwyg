@@ -27,7 +27,7 @@ import { mergeRecursive } from '../utils/toolbar';
 import { hasProperty, filter } from '../utils/common';
 import { handlePastedText } from '../utils/handlePaste';
 import Controls from '../controls';
-import getLinkDecorator from '../decorators/Link';
+import getDefaultLinkDecorator from '../decorators/Link';
 import getMentionDecorators from '../decorators/Mention';
 import getHashtagDecorator from '../decorators/HashTag';
 import getBlockRenderFunc from '../renderer';
@@ -206,6 +206,7 @@ class WysiwygEditor extends Component {
   };
 
   getCompositeDecorator = toolbar => {
+    const getLinkDecorator = toolbar.link.getLinkDecorator || getDefaultLinkDecorator;
     const decorators = [
       ...this.props.customDecorators,
       getLinkDecorator({
