@@ -87,6 +87,9 @@ class Link extends Component {
       currentValues.link.targetOption =
         currentEntity &&
         contentState.getEntity(currentEntity).get('data').targetOption;
+      currentValues.link.attributes =
+        currentEntity &&
+        contentState.getEntity(currentEntity).get('data').attributes;
       currentValues.link.title = entityRange && entityRange.text;
     }
     currentValues.selectionText = getSelectionText(editorState);
