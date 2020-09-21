@@ -68,3 +68,8 @@ Original motivation and sponsorship for this work came from [iPaoo](http://www.i
 
 ## License
 MIT.
+
+# Fork info
+This repo has been forked because we needed to add these fixes: 
+- https://github.com/geosolutions-it/react-draft-wysiwyg/tree/0573508b1617a7a2c9827dcf1fe8ab2596f7d9c1
+- https://github.com/geosolutions-it/react-draft-wysiwyg/tree/5fcc3915072df30adb6f781272161642c61f9b59
