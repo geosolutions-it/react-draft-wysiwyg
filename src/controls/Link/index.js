@@ -56,15 +56,15 @@ class Link extends Component {
     this.signalExpanded = !this.state.expanded;
   };
 
-  onChange = (action, title, target, targetOption) => {
+  onChange = (action, title, target, targetOption, attributes) => {
     const {
       config: { linkCallback },
     } = this.props;
 
     if (action === 'link') {
       const linkifyCallback = linkCallback || linkifyLink;
-      const linkified = linkifyCallback({ title, target, targetOption });
-      this.addLink(linkified.title, linkified.target, linkified.targetOption);
+      const linkified = linkifyCallback({ title, target, targetOption, attributes });
+      this.addLink(linkified.title, linkified.target, linkified.targetOption, linkified.attributes);
     } else {
       this.removeLink();
     }
@@ -87,6 +87,9 @@ class Link extends Component {
       currentValues.link.targetOption =
         currentEntity &&
         contentState.getEntity(currentEntity).get('data').targetOption;
+      currentValues.link.attributes =
+        currentEntity &&
+        contentState.getEntity(currentEntity).get('data').attributes;
       currentValues.link.title = entityRange && entityRange.text;
     }
     currentValues.selectionText = getSelectionText(editorState);
@@ -134,7 +137,7 @@ class Link extends Component {
     }
   };
 
-  addLink = (linkTitle, linkTarget, linkTargetOption) => {
+  addLink = (linkTitle, linkTarget, linkTargetOption, attributes) => {
     const { editorState, onChange, config: { trailingWhitespace = false } } = this.props;
     const { currentEntity } = this.state;
     let selection = editorState.getSelection();
@@ -154,11 +157,13 @@ class Link extends Component {
         });
       }
     }
+  
     const entityKey = editorState
       .getCurrentContent()
       .createEntity('LINK', 'MUTABLE', {
         url: linkTarget,
         targetOption: linkTargetOption,
+        attributes
       })
       .getLastCreatedEntityKey();
 
