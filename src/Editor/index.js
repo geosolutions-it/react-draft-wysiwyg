@@ -174,7 +174,8 @@ class WysiwygEditor extends Component {
     }
   };
 
-  onChange = editorState => {
+// Add focus arg to solve: see issue https://github.com/jpuri/react-draft-wysiwyg/issues/518
+  onChange = (editorState, focus = false) => {
     const { readOnly, onEditorStateChange } = this.props;
     if (
       !readOnly &&
@@ -191,6 +192,9 @@ class WysiwygEditor extends Component {
       } else {
         this.afterChange(editorState);
       }
+    }
+    if (focus) {
+      this.focusEditor();
     }
   };
 
